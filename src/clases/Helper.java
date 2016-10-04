@@ -6,6 +6,7 @@
 package clases;
 
 import java.awt.Component;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -171,9 +172,9 @@ public class Helper {
         return aux;
 
     }
-    
-     public static String recorridoHaciaArriba(int[][] m, int j, int in, int fin) {
-      
+
+    public static String recorridoHaciaArriba(int[][] m, int j, int in, int fin) {
+
         String aux = "";
         for (int i = in; i >= fin; i--) {
             aux = aux + m[i][j] + ", ";
@@ -191,9 +192,9 @@ public class Helper {
         return aux;
 
     }
-    
-     public static String recorridoHaciaAbajo(int[][] m, int j, int in, int fin) {
-      
+
+    public static String recorridoHaciaAbajo(int[][] m, int j, int in, int fin) {
+
         String aux = "";
         for (int i = in; i < fin; i++) {
             aux = aux + m[i][j] + ", ";
@@ -213,29 +214,30 @@ public class Helper {
                 aux = aux + Helper.recorridoHaciaAbajo(m, j);
             }
         }
-        aux = aux.substring(0, aux.length()-2)+".";
+        aux = aux.substring(0, aux.length() - 2) + ".";
         return aux;
     }
-    
+
     public static String recorridoHaciaIzquierda(int[][] m, int i) {
         int nc = m[0].length;
         String aux = "";
-        for (int j = nc-1; j >= 0; j--) {
+        for (int j = nc - 1; j >= 0; j--) {
             aux = aux + m[i][j] + ", ";
         }
         return aux;
 
     }
-    
-     public static String recorridoHaciaIzquierda(int[][] m, int i, int in, int fin) {
-        
+
+    public static String recorridoHaciaIzquierda(int[][] m, int i, int in, int fin) {
+
         String aux = "";
-        for (int j =in; j >= fin; j--) {
+        for (int j = in; j >= fin; j--) {
             aux = aux + m[i][j] + ", ";
         }
         return aux;
 
     }
+
     public static String recorridoHaciaDerecha(int[][] m, int i) {
         int nc = m[0].length;
         String aux = "";
@@ -245,9 +247,9 @@ public class Helper {
         return aux;
 
     }
-    
-    public static String recorridoHaciaDerecha(int[][] m, int i,int in, int fin) {
-       
+
+    public static String recorridoHaciaDerecha(int[][] m, int i, int in, int fin) {
+
         String aux = "";
         for (int j = in; j < fin; j++) {
             aux = aux + m[i][j] + ", ";
@@ -255,22 +257,37 @@ public class Helper {
         return aux;
 
     }
-    
-    public static String recorridoDos(JTable tabla1){
+
+    public static String recorridoDos(JTable tabla1) {
         int m[][] = pasoDeDatos(tabla1);
         int nf = m.length;
-        String aux="";
+        String aux = "";
         for (int i = 0; i < nf; i++) {
-            if(i%2==0){
-                aux=aux+ recorridoHaciaIzquierda(m, i);
-            }else{
-                aux=aux+recorridoHaciaDerecha(m, i);
+            if (i % 2 == 0) {
+                aux = aux + recorridoHaciaIzquierda(m, i);
+            } else {
+                aux = aux + recorridoHaciaDerecha(m, i);
             }
-            
+
         }
-        aux = aux.substring(0, aux.length()-2)+".";
+        aux = aux.substring(0, aux.length() - 2) + ".";
         return aux;
     }
-    
 
+    public static void llenarTabla(JTable tabla, ArrayList<Persona> personas) {
+        DefaultTableModel tm;
+        int nf;
+
+        tm = (DefaultTableModel) tabla.getModel();
+        limpiadoTabla(tabla);
+        nf = personas.size();
+        tm.setRowCount(nf);
+
+        for (int i = 0; i < nf; i++) {
+            tabla.setValueAt(i + 1, i, 0);
+            tabla.setValueAt(personas.get(i).getCedula(), i, 1);
+            tabla.setValueAt(personas.get(i).getNombre(), i, 2);
+            tabla.setValueAt(personas.get(i).getCedula(), i, 3);
+        }
+    }
 }

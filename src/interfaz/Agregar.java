@@ -6,18 +6,26 @@
 
 package interfaz;
 
+import clases.Helper;
+import clases.Persona;
+import java.util.ArrayList;
+
 /**
  *
  * @author jramirez25
  */
+
 public class Agregar extends javax.swing.JDialog {
 
     /**
      * Creates new form Agregar
      */
+    ArrayList <Persona> personas;
     public Agregar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        personas = new ArrayList();
+        
     }
 
     /**
@@ -90,10 +98,20 @@ public class Agregar extends javax.swing.JDialog {
 
         cmdLimpiar.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         cmdLimpiar.setText("Limpiar");
+        cmdLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLimpiarActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmdLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 120, 30));
 
         cmdGuardar.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         cmdGuardar.setText("Guardar");
+        cmdGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdGuardarActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmdGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 120, 30));
 
         cmdEliminar.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
@@ -143,6 +161,30 @@ public class Agregar extends javax.swing.JDialog {
         setSize(new java.awt.Dimension(531, 556));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdGuardarActionPerformed
+        String cedula, nombre, apellido;
+        cedula = txtCedula.getText();
+        nombre = txtNombre.getText();
+        apellido = txtApellido.getText();
+        
+        Persona p = new Persona (cedula, nombre, apellido);
+        personas.add(p);
+        
+        Helper.llenarTabla(tblTablaPersonas, personas);
+        
+        txtCedula.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtCedula.requestFocusInWindow();
+    }//GEN-LAST:event_cmdGuardarActionPerformed
+
+    private void cmdLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLimpiarActionPerformed
+       txtCedula.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtCedula.requestFocusInWindow();
+    }//GEN-LAST:event_cmdLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
